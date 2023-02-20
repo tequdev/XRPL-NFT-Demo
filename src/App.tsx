@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FormEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Xumm } from 'xumm';
 import { Buffer } from 'buffer';
 import { XrplClient } from 'xrpl-client'
@@ -46,6 +46,10 @@ function App() {
       setStatus(account ? 'connected' : 'unconnected')
     })
   }, [])
+  
+  const taxon = useMemo(() => parseInt(taxonRef.current?.value || '0'), [])
+  const transferFee = useMemo(() => royalty * 1000, [royalty])
+  const uri = useMemo(()=>Buffer.from(uriRef.current?.value || '', 'utf8').toString('hex').toUpperCase(),[])
 
   const mint: FormEventHandler<HTMLButtonElement> = useCallback(async (event) => {
     event.preventDefault();
@@ -56,13 +60,13 @@ function App() {
     }
     const payload = {
       TransactionType: 'NFTokenMint',
-      NFTokenTaxon: parseInt(taxonRef.current?.value || '0'),
+      NFTokenTaxon: taxon,
       ...(sbt ? {
         Flags: 8,
-        TransferFee: royalty * 1000,
+        TransferFee: transferFee,
       } : {}),
       ...(uriRef.current?.value ? {
-        URI: Buffer.from(uriRef.current.value, 'utf8').toString('hex').toUpperCase(),
+        URI: uri
       } : {})
     } as const
 
@@ -107,7 +111,7 @@ function App() {
       tokenId,
       network: dispatched_nodetype!
     })
-  }, [royalty, sbt])
+  }, [sbt, taxon, transferFee, uri])
 
   const openPage = useCallback(() => {
     if (!mintedToken) return
