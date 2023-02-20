@@ -22,6 +22,7 @@ type MintedToken = {
   tokenId: string
   network: string
 }
+
 function App() {
   const formRef = useRef<HTMLFormElement>(null)
   const uriRef = useRef<HTMLInputElement>(null)
@@ -61,7 +62,7 @@ function App() {
         TransferFee: royalty * 1000,
       } : {}),
       ...(uriRef.current?.value ? {
-        URI: Buffer.from(uriRef.current.value || '', 'utf8').toString('hex').toUpperCase(),
+        URI: Buffer.from(uriRef.current.value, 'utf8').toString('hex').toUpperCase(),
       } : {})
     } as const
 
@@ -82,6 +83,7 @@ function App() {
     const subscription = await xumm.payload?.subscribe(uuid)
     if (!subscription) return
     subscription.websocket.onmessage = (message) => {
+      // subscription websocket message from xumm
       if (message.data.toString().match(/signed/)) {
         // close popup window(pc)
         setTimeout(() => pcWindowId?.close(), 1500)
@@ -90,11 +92,12 @@ function App() {
       }
     }
     await subscription.resolved
+
+    // get tx to retrieve nftokenId
     const result = await xumm.payload?.get(uuid)
     if (!result?.response.txid) return
     const { txid, dispatched_nodetype, dispatched_to } = result.response
     const client = new XrplClient(dispatched_to!)
-
     const txResponse = await client.send({
       command: 'tx',
       transaction: txid
@@ -112,7 +115,9 @@ function App() {
       window.open(`https://xrp.cafe/nft/${mintedToken.tokenId}`, '_blank')
     } else if (mintedToken.network === 'TESTNET') {
       window.open(`https://test.bithomp.com/nft/${mintedToken.tokenId}`, '_blank')
-    } else {
+    } else if (mintedToken.network === 'DEVNET') {
+      window.open(`https://dev.bithomp.com/nft/${mintedToken.tokenId}`, '_blank')
+    }else{
       alert('Unsupported network.')
     }
   }, [mintedToken])
@@ -152,7 +157,7 @@ function App() {
                   </label>
                   <div className="btn-group w-full">
                     {ROYALTIES.map((r) => (
-                      <button key={r} type='button' onClick={() => setRoyalty(r)} className={`btn w-1/4 ${royalty === r ? 'btn-active' : ''}`}>{r}%</button>
+                      <button key={r} type='button' onClick={() => setRoyalty(r)} className={`btn btn-outline border-gray-300 w-1/4 ${royalty === r ? 'btn-active' : ''}`}>{r}%</button>
                     ))}
                   </div>
                 </>
