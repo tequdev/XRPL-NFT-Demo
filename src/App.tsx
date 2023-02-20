@@ -34,6 +34,11 @@ function App() {
   const [royalty, setRoyalty] = useState<typeof ROYALTIES[number]>(0)
 
   useEffect(() => {
+    xumm.on('success', () => {
+      xumm.user.account.then((account) => {
+        setStatus(account ? 'connected' : 'unconnected')
+      })
+    })
     xumm.environment.ready.then(async () => {
       // get connected user
       const account = await new Promise<string | null>((resolve) => {
@@ -47,9 +52,14 @@ function App() {
     })
   }, [])
   
+  const disconnect = useCallback(async () => {
+    await xumm.logout()
+    setStatus('unconnected')
+  }, [])
+
   const taxon = useMemo(() => parseInt(taxonRef.current?.value || '0'), [])
   const transferFee = useMemo(() => royalty * 1000, [royalty])
-  const uri = useMemo(()=>Buffer.from(uriRef.current?.value || '', 'utf8').toString('hex').toUpperCase(),[])
+  const uri = useMemo(() => Buffer.from(uriRef.current?.value || '', 'utf8').toString('hex').toUpperCase(), [])
 
   const mint: FormEventHandler<HTMLButtonElement> = useCallback(async (event) => {
     event.preventDefault();
@@ -121,15 +131,18 @@ function App() {
       window.open(`https://test.bithomp.com/nft/${mintedToken.tokenId}`, '_blank')
     } else if (mintedToken.network === 'DEVNET') {
       window.open(`https://dev.bithomp.com/nft/${mintedToken.tokenId}`, '_blank')
-    }else{
+    } else {
       alert('Unsupported network.')
     }
   }, [mintedToken])
 
   return (
     <div className='p-4 mt-8 md:mt-24 text-center'>
-      <div className='text-4xl my-8 break-all'>
+      <div className='text-4xl my-8 break-all flex items-center flex-col'>
         XRPL NFT Demo
+        <div className='flex justify-end text-sm max-w-sm w-full'>
+          {status === 'connected' && <button className='btn btn-sm btn-outline' onClick={disconnect}>Logout</button>}
+        </div>
       </div>
       <div className='flex justify-center'>
         {status === 'unconnected' &&
