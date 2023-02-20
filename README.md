@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+# XRPL NFT Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+このリポジトリはXRP Ledgerで[Xumm](https://xumm.app/)を利用してNFTを発行するためのデモページです。
 
-## Available Scripts
+事前に[Xumm Developer Console](https://apps.xumm.dev/)からAPI Keyを取得する必要があります。
 
-In the project directory, you can run:
+取得したAPI Keyは.env.localファイルの`REACT_APP_XUMM_API_KEY`に設定してください
 
-### `yarn start`
+## ネットワーク
+**メインネットでもトランザクションへの署名が可能のため、署名する際は十分に気をつけてください。**
+Xummで利用するネットワークは設定→詳細設定→ノードから選択可能です。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Faucet
+次のページからテストネット用アカウントを取得可能です。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+https://xrpl.org/ja/xrp-testnet-faucet.html
 
-### `yarn test`
+https://faucet.tequ.dev/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## アプリの起動
+### パッケージのインストール
 
-### `yarn build`
+`yarn add`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### アプリの起動
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`yarn start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
