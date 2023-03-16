@@ -9,23 +9,33 @@ export const ImageUploader: FC<Props> = ({ _ref: ref }) => {
   }
   return (
     <div className="my-4">
-      <div className="nftUplodeBox p-10 border-2">
-        <div className="imageLogoAndText">
+      <div className="p-10 border-2 relative">
+        <div>
           <p>Drag & drop images</p>
         </div>
         <input
           ref={ref}
-          hidden
+          name="imageInput"
+          className="hidden"
           multiple
-          name="imageURL"
           type="file"
           accept=".jpg , .jpeg , .png"
         />
       </div>
       <p>OR</p>
-      <button type="button" className="btn contained" onClick={selectFile}>
+      <button
+        type="button"
+        className="btn relative contained"
+        onClick={selectFile}
+      >
         Select File
-        <input ref={ref} hidden type="file" accept=".jpg , .jpeg , .png" />
+        <input
+          ref={ref}
+          name="imageInput"
+          className="hidden"
+          type="file"
+          accept=".jpg , .jpeg , .png"
+        />
       </button>
     </div>
   );

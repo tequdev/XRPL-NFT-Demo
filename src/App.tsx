@@ -12,6 +12,7 @@ import { XrplClient } from "xrpl-client";
 import { parser } from "./utils/parser";
 import { windowOpen } from "./utils/windowOpen.";
 import { ImageUploader } from "./components/ImageUploader";
+import { uploadToIpfs } from "./utils/ipfs";
 
 const xumm = new Xumm(process.env.REACT_APP_XUMM_API_KEY!);
 const ROYALTIES = [0, 1, 5, 10] as const;
@@ -24,9 +25,8 @@ type MintedToken = {
 function App() {
   const formRef = useRef<HTMLFormElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
-  const uriRef = useRef<HTMLInputElement>(null);
   const taxonRef = useRef<HTMLInputElement>(null);
-  const titleRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
 
   const [mintedToken, setMintedToken] = useState<MintedToken>();
@@ -58,11 +58,11 @@ function App() {
 
   const taxon = useMemo(() => parseInt(taxonRef.current?.value || "0"), []);
   const transferFee = useMemo(() => royalty * 1000, [royalty]);
-  const uri = useMemo(
-    () =>
-      Buffer.from(uriRef.current?.value || "", "utf8")
-        .toString("hex")
-        .toUpperCase(),
+  const metadata = useMemo(
+    () => ({
+      name: nameRef.current?.value || "",
+      description: descriptionRef.current?.value || "",
+    }),
     []
   );
 
@@ -74,11 +74,18 @@ function App() {
         formRef.current?.reportValidity();
         return;
       }
+      if (!imageRef.current?.files) {
+        alert("Please select an Image.");
+        return;
+      }
+      const _uri = await uploadToIpfs(imageRef.current.files[0]!, metadata);
+      const uri = Buffer.from(_uri, "utf8").toString("hex").toUpperCase();
+
       const payload = {
         TransactionType: "NFTokenMint",
         NFTokenTaxon: taxon,
+        URI: uri,
         ...(sbt ? { Flags: 8, TransferFee: transferFee } : {}),
-        ...(uri ? { URI: uri } : {}),
       } as const;
 
       const response = await xumm.payload?.create(payload);
@@ -118,7 +125,7 @@ function App() {
         network: dispatched_nodetype!,
       });
     },
-    [sbt, taxon, transferFee, uri]
+    [metadata, sbt, taxon, transferFee]
   );
 
   const openPage = useCallback(() => {
@@ -164,12 +171,12 @@ function App() {
               <ImageUploader _ref={imageRef} />
               {/* Metadata */}
               <span className="mt-4 -mb-2">NFT Metadata</span>
-              {/* title */}
+              {/* name */}
               <label className="label pb-0">
-                <span className="label-text">Title</span>
+                <span className="label-text">Name</span>
               </label>
               <input
-                ref={titleRef}
+                ref={nameRef}
                 type="text"
                 inputMode="text"
                 className="input input-bordered w-full max-w-xs"
