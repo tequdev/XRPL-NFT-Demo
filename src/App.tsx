@@ -3,21 +3,11 @@ import { Xumm } from 'xumm';
 import { Buffer } from 'buffer';
 import { XrplClient } from 'xrpl-client'
 import { parser } from './utils/parser';
+import { windowOpen } from './utils/windowOpen.';
 
 const xumm = new Xumm(process.env.REACT_APP_XUMM_API_KEY!)
 const ROYALTIES = [0, 1, 5, 10] as const
-const options = `
-        width=600,
-        height=790,
-        directories=no,
-        titlebar=no
-        toolbar=no,
-        location=no,
-        status=no,
-        menubar=no,
-        scrollbars=no,
-        resizable=no
-      `
+
 type MintedToken = {
   tokenId: string
   network: string
@@ -34,18 +24,14 @@ function App() {
   const [royalty, setRoyalty] = useState<typeof ROYALTIES[number]>(0)
 
   useEffect(() => {
-    xumm.on('success', () => {
-      xumm.user.account.then((account) => {
-        setStatus(account ? 'connected' : 'unconnected')
-      })
+    xumm.on('success', async() => {
+        setStatus(await xumm.user.account ? 'connected' : 'unconnected')
     })
-    xumm.environment.ready.then(async () => {
+    xumm.on('ready',async()=>{
       // get connected user
-      const account = await new Promise<string | null>((resolve) => {
+      const account = await new Promise<string | null>(async (resolve) => {
         setTimeout(() => resolve(null), 1000)
-        xumm.user.account.then((account) => {
-          return resolve(account || null)
-        })
+        resolve(await xumm.user.account || null)
       })
       // set connected status
       setStatus(account ? 'connected' : 'unconnected')
@@ -69,31 +55,19 @@ function App() {
       return
     }
     const payload = {
-      TransactionType: 'NFTokenMint',
+      TransactionType: "NFTokenMint",
       NFTokenTaxon: taxon,
-      ...(sbt ? {
-        Flags: 8,
-        TransferFee: transferFee,
-      } : {}),
-      ...(uriRef.current?.value ? {
-        URI: uri
-      } : {})
-    } as const
+      ...(sbt ? { Flags: 8, TransferFee: transferFee, } : {}),
+      ...(uri ? { URI: uri, }
+        : {}),
+    } as const;
 
     const response = await xumm.payload?.create(payload)
     if (!response) return
     const { uuid, next: { always: url } } = response
-    let pcWindowId: Window | null = null
     // open payload
-    if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) {
-      // mobile
-      window.location.replace(url)
-    } else {
-      // pc
-      const top = (window.screen.availHeight- 790)/2
-      const left = (window.screen.availWidth - 600)/2
-      pcWindowId = window.open(url, "_blank", `${options},top=${top},left=${left}`)
-    }
+    const pcWindowId = windowOpen(url);
+    // get payload status
     const subscription = await xumm.payload?.subscribe(uuid)
     if (!subscription) return
     subscription.websocket.onmessage = (message) => {
