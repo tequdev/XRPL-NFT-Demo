@@ -1,15 +1,23 @@
-import { FC, RefObject } from "react";
+import React, { FC, RefObject, useState } from "react";
 
 type Props = {
   _ref: RefObject<HTMLInputElement>;
 };
 export const ImageUploader: FC<Props> = ({ _ref: ref }) => {
+  const [image,setImage] = useState<FileList[number]>()
   const selectFile = () => {
-    ref.current?.click()
+    if(!ref.current) return
+    ref.current.click()
+    ref.current.onchange = (ev:any) => {
+      setImage(ev.target.files[0]);
+    }
   }
   return (
     <div className="my-4">
-      <div className="p-10 border-2 relative">
+      {(ref.current?.files?.length || 0) > 0 && (
+        <img src={URL.createObjectURL(image as any)} alt="nft" className="border-2 my-1" />
+      )}
+      {/* <div className="p-10 border-2 relative">
         <div>
           <p>Drag & drop images</p>
         </div>
@@ -22,7 +30,7 @@ export const ImageUploader: FC<Props> = ({ _ref: ref }) => {
           accept=".jpg , .jpeg , .png"
         />
       </div>
-      <p>OR</p>
+      <p>OR</p> */}
       <button
         type="button"
         className="btn relative contained"
