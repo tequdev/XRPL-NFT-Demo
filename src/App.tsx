@@ -37,11 +37,11 @@ function App() {
   const [royalty, setRoyalty] = useState<typeof ROYALTIES[number]>(0);
 
   useEffect(() => {
-    xumm.on("success", async () => {
-      setStatus((await xumm.user.account) ? "connected" : "unconnected");
-    });
-    xumm.on("ready", async () => {
-      // get connected user
+    xumm.on('success', async () => {
+      setStatus(await xumm.user.account ? 'connected' : 'unconnected')
+    })
+
+    xumm.environment.ready.then(async () => { 
       const account = await new Promise<string | null>(async (resolve) => {
         setTimeout(() => resolve(null), 1000);
         resolve((await xumm.user.account) || null);

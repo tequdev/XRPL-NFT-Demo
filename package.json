@@ -19,7 +19,7 @@
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
     "xrpl-client": "^2.0.3",
-    "xumm": "^1.2.0"
+    "xumm": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
