@@ -2523,6 +2523,26 @@
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
 
+"@xrplkit/amount@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@xrplkit/amount/-/amount-1.2.3.tgz#f26eb9488862dd96339d2e0e871e0430e3f5652d"
+  integrity sha512-poV7ym7EhjAlEGym9Kc3AHuy3uuhVW3qnl2KDr8D4zk7hANj7aG6l1XdtWIAGAgBpHnvPEaOG7+llPRRv1irZw==
+  dependencies:
+    "@xrplkit/xfl" "2.0.2"
+
+"@xrplkit/txmeta@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@xrplkit/txmeta/-/txmeta-1.3.1.tgz#1b9f8532224a69a35d91129f2c0deedaf41c7520"
+  integrity sha512-iJNtLgXTpbuYBI0VDsXJhi3MHxmsCdWsI3OumETk+21HjxDw1AmPGmVHWu8q8turFth1qzRIAtHjxLHDl307sg==
+  dependencies:
+    "@xrplkit/amount" "1.2.3"
+    "@xrplkit/xfl" "2.0.2"
+
+"@xrplkit/xfl@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@xrplkit/xfl/-/xfl-2.0.2.tgz#e512fc8ee1c681dd113ddaa4c6d5fd48fc3317ef"
+  integrity sha512-OUZZzSoXSxYxuhBcz08Wb9Xme71PkFYejk3vq4jPzdXreVhF71ZrM6nSObHFgasC8/srWKoqiS37CnB2Ht3k/g==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
@@ -9504,6 +9524,13 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
+swr@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-2.1.5.tgz#688effa719c03f6d35c66decbb0f8e79c7190399"
+  integrity sha512-/OhfZMcEpuz77KavXST5q6XE9nrOBOVcBLWjMT+oAE/kQHyE3PASrevXCtQDZ8aamntOfFkbVJp7Il9tNBQWrw==
+  dependencies:
+    use-sync-external-store "^1.2.0"
+
 symbol-tree@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
@@ -9911,6 +9938,11 @@ url-parse@^1.5.3:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
+
+use-sync-external-store@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
+  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
 
 utf-8-validate@^5.0.2:
   version "5.0.10"
@@ -10501,10 +10533,10 @@ xmlchars@^2.2.0:
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
 
-xrpl-client@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/xrpl-client/-/xrpl-client-2.0.3.tgz#3e1316e83deb6617f941b30d6582fc8ff32fd18d"
-  integrity sha512-bxk6VR38ieGyRbaW8Nga/JRpgwLSaOeZTCzN6OdIbQe+xDpZMCE9NuVHAl96p+3RKR2wnfe8pjSrO+TKPFgJ1A==
+xrpl-client@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/xrpl-client/-/xrpl-client-2.0.11.tgz#7ccc39329cb574149d1e0a1681747c9a20511e8f"
+  integrity sha512-QPpJBRoIXF40wiET/zXICiX3R8BRBgnFUD7MBfVD76vRcBfGEkCDCszP5QW4xY0GTJA/PCWwknAsjrg0En49cA==
   dependencies:
     debug "^4.1.1"
     websocket "^1.0.34"
@@ -10521,24 +10553,25 @@ xumm-js-pkce@^1.0.0:
   dependencies:
     crypto-js "^4.0.0"
 
-xumm-oauth2-pkce@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/xumm-oauth2-pkce/-/xumm-oauth2-pkce-2.8.0.tgz#d58bab166d8328a1d29f79032eaa9811d193d9dd"
-  integrity sha512-6dIHYNgywJpj3/A7rLbj3smTjGfGtojcMcl2+BLMDR531nktPWhq0Q50/RyidSgoWF+XYFKQsuB5d/4RGyJVnA==
+xumm-oauth2-pkce@^2.8.2:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/xumm-oauth2-pkce/-/xumm-oauth2-pkce-2.8.2.tgz#ed317fc32eb55bdd72fc08a00d184ca8d2a97a4e"
+  integrity sha512-9TrwGCDQt0AIjhJka9Dbhte//SiFAGVLzNfFGn5x6vz+YP4QikvuC1X1R3XTgNaYuL8+h3V8gLo3dCGTVizGbg==
   dependencies:
     debug "^4.1.1"
     events "^3.3.0"
     xumm-js-pkce "^1.0.0"
-    xumm-sdk "^1.8.4"
+    xumm-sdk "^1.8.6"
 
-xumm-sdk@^1.8.4:
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/xumm-sdk/-/xumm-sdk-1.8.4.tgz#42132b469f7d9c5d9f091254780f7e3af04acaad"
-  integrity sha512-pB+AtzoZZsMvoaYIjNimc/+EggY7CYX1JdZV8FEiEVrgHIQC8FjPgSO9g9hQHRCWdWtvVYM6ZiPqIREWy8LptA==
+xumm-sdk@^1.8.6:
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/xumm-sdk/-/xumm-sdk-1.8.6.tgz#170e9775aef0f99602ebd3f96acbdfce24214aa9"
+  integrity sha512-qFBHE6ZuxV5HvJuZGnrzyTrPpol2xiaVhQG44Lm1h0xOTS/AK2RV/pfCgyNoXf+hw/zTzlVuuXF7RnlwEDmyeg==
   dependencies:
     "@types/websocket" "^1.0.5"
     assert "^2.0.0"
     bignumber.js "^9.0.0"
+    buffer "^6.0.3"
     debug "^4.1.1"
     events "^3.3.0"
     fetch-ponyfill "^7.1.0"
@@ -10554,16 +10587,17 @@ xumm-xapp-sdk@^1.6.4:
     debug "^4.1.1"
     events "^3.3.0"
 
-xumm@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/xumm/-/xumm-1.5.0.tgz#8bc2fcdcc78a3df873588ff731172adb83f1ffca"
-  integrity sha512-kizhIIFJlHLC/GjbAg91yroHh7aWRgPa4ersvbPMxVG2jUppSD97Ws01Pd78PBGBSe2tfQEyju2AjnsS0Chs8A==
+xumm@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/xumm/-/xumm-1.5.4.tgz#05a7959d1c2576518512c47a2f6b00b87abc2efd"
+  integrity sha512-WaMg9R21e+hJCnF7gDNnutAdVNxNl220n94JY280/XMbq/rq5R1XsqSr1DqFx54ej+5dqd2RQxGgXcS5Mk/wMQ==
   dependencies:
+    buffer "^6.0.3"
     events "^3.3.0"
     nodemon "^2.0.20"
     xumm-js-pkce "^1.0.0"
-    xumm-oauth2-pkce "^2.8.0"
-    xumm-sdk "^1.8.4"
+    xumm-oauth2-pkce "^2.8.2"
+    xumm-sdk "^1.8.6"
     xumm-xapp-sdk "^1.6.4"
 
 y18n@^5.0.5:
