@@ -45,7 +45,7 @@ function App() {
   return (
     <div className="p-4 mt-8 md:mt-24 text-center">
       <div className="text-4xl my-8 break-all flex items-center flex-col">
-        XRPL NFT Demo
+        Xahau NFT Demo
         <div className="flex justify-end text-sm max-w-sm w-full">
           {status === "connected" && (
             <button className="btn btn-sm btn-outline" onClick={disconnect}>
