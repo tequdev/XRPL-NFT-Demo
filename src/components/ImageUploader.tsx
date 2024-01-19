@@ -15,7 +15,9 @@ export const ImageUploader: FC<Props> = ({ _ref: ref }) => {
   return (
     <div className="my-4">
       {(ref.current?.files?.length || 0) > 0 && (
-        <img src={URL.createObjectURL(image as any)} alt="nft" className="border-2 my-1" />
+        <div className="flex justify-center">
+          <img src={URL.createObjectURL(image as any)} alt="nft" className="border-2 my-1" />
+        </div>
       )}
       {/* <div className="p-10 border-2 relative">
         <div>

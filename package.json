@@ -13,7 +13,7 @@
     "@xrplkit/txmeta": "^1.3.1",
     "buffer": "^6.0.3",
     "daisyui": "^2.50.1",
-    "nft.storage": "^7.0.3",
+    "nft.storage": "^7.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -21,7 +21,7 @@
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
     "xrpl-client": "^2.0.11",
-    "xumm": "^1.5.4"
+    "xumm": "^1.7.6"
   },
   "scripts": {
     "start": "react-scripts start",
